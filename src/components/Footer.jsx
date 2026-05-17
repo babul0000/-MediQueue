@@ -12,7 +12,7 @@ const Footer = () => {
                             Get the latest news!
                         </h3>
                         <p className="text-gray-500 text-sm leading-relaxed">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam molestias.
+                            sit amet consectetur adipisicing elit. Esse non cupiditate quae nam molestias.
                         </p>
                     </div>
 

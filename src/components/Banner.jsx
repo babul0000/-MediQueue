@@ -38,16 +38,16 @@ const BannerPage = () => {
                     </div>
                 </div>
 
-                {/* ডান পাশের ইমেজ/গ্রাফিক্স কন্টেইনার (Right Side Grid Graphics) */}
+
                 <div className="lg:col-span-5 relative flex justify-center items-center">
 
-                    {/* পেছনে সুন্দর একটি গ্লো ইফেক্ট */}
+
                     <div className="absolute w-72 h-72 bg-teal-300/20 rounded-full blur-3xl -z-10"></div>
 
-                    {/* গ্রিড লেআউট (টিউটরদের ডেমো ইমেজ গ্রিড) */}
+
                     <div className="grid grid-cols-3 gap-4 transform rotate-3 hover:rotate-0 transition-transform duration-500 max-w-[420px]">
 
-                        {/* টিউটর ১ */}
+
                         <div className="rounded-2xl overflow-hidden shadow-xl border-2 border-white/20 transform -translate-y-4">
                             <Image
                             width={200}
@@ -58,7 +58,7 @@ const BannerPage = () => {
                             />
                         </div>
 
-                        {/* টিউটর ২ */}
+
                         <div className="rounded-2xl overflow-hidden shadow-xl border-2 border-white/20">
                             <Image
                             width={200}
@@ -69,7 +69,7 @@ const BannerPage = () => {
                             />
                         </div>
 
-                        {/* টিউটর ৩ */}
+
                         <div className="rounded-2xl overflow-hidden shadow-xl border-2 border-white/20 transform translate-y-4">
                             <Image
                             width={200}
@@ -80,7 +80,7 @@ const BannerPage = () => {
                             />
                         </div>
 
-                        {/* টিউটর ৪ */}
+
                         <div className="rounded-2xl overflow-hidden shadow-xl border-2 border-white/20 transform -translate-y-2">
                             <Image
                             width={200}

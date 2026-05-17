@@ -1,3 +1,4 @@
+import { BookingModal } from '@/components/BookModal';
 import TutorCard from '@/components/TutorCard';
 import React from 'react';
 
@@ -7,14 +8,15 @@ const TutorPage = async() => {
     console.log(tutors);
     
     return (
-        <div>
+        <div className='w-10/12 mx-auto'>
             All Tutor
 
-            <div className='grid grid-cols-3 gap-6'>
+            <div className='grid grid-cols-3 gap-6 p-10'>
                 {
                     tutors.map(tutor => <TutorCard key={tutor._id} tutor={tutor}/>)
                 }
             </div>
+
         </div>
     );
 };

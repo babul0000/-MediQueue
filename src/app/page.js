@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div >
       <BannerPage/>
-      main page
+      <div className="text-2xl font-bold">main page</div>
 
       
     </div>

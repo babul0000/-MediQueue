@@ -15,20 +15,18 @@ const TutorCard = ({ tutor }) => {
     } = tutor || {};
 
     return (
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group items-center">
+        <div className="bg-white rounded-2xl p-10  shadow-sm border border-gray-100 items-center">
 
 
-            <div className="relative h-[200px] w-full">
+            <div className=" h-[200px] w-full">
                 <Image
                     src={photoUrl}
                     alt={tutorName}
-                    width={120}
-                    height={150}
-                    // fill
+                    width={200}
+                    height={200}
+                    sizes="100vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                
-                
             </div>
 
 
@@ -55,7 +53,7 @@ const TutorCard = ({ tutor }) => {
             </div>
 
 
-            <Link href={`/tutors/${_id || ''}`}>
+            <Link href={`/tutor/${_id}`}>
                 <button className="w-full bg-[#009688] hover:bg-[#00897b]  text-[16px] font-medium py-[11px] rounded-[12px] transition-colors duration-200">
                     Book Session
                 </button>
