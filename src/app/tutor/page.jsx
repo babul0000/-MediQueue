@@ -11,7 +11,7 @@ const TutorPage = async() => {
         <div className='w-10/12 mx-auto'>
             All Tutor
 
-            <div className='grid grid-cols-3 gap-6 p-10'>
+            <div className='w-10/12 mx-auto grid grid-cols-3 gap-6 p-10'>
                 {
                     tutors.map(tutor => <TutorCard key={tutor._id} tutor={tutor}/>)
                 }
