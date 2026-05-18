@@ -2,32 +2,28 @@
 import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BsGoogle } from "react-icons/bs";
 
 const LoginPage = () => {
+    const router = useRouter();
 
-    
     const onSubmit = async (e) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const user = Object.fromEntries(formData.entries())
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
         console.log(user);
         const { data, error } = await authClient.signIn.email({
             email: user.email,
             password: user.password,
-        })
+        });
         if (data) {
-            redirect('/')
+            router.push('/');
         }
         if (error) {
-            alert('invalid user')
+            alert('Invalid user');
         }
-        // console.log(data, error);
-
-        
-
-    }
+    };
 
     const handleGoogle = async () => {
         await authClient.signIn.social({
@@ -35,12 +31,11 @@ const LoginPage = () => {
         });
     };
 
-    
-        
-        return (
-            <div className="w-4/12 mx-auto my-15 border-1 shadow-md p-8 rounded-md">
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-10">
+            <div className="w-full max-w-md mx-auto my-10 border border-gray-200 shadow-md p-8 rounded-md bg-white">
                 <Form
-                    className="flex  flex-col gap-5"
+                    className="flex flex-col gap-5"
                     render={(props) => <form {...props} data-custom="foo" />}
                     onSubmit={onSubmit}
                 >
@@ -82,26 +77,25 @@ const LoginPage = () => {
                         <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
                         <FieldError />
                     </TextField>
-                    <div className="">
+                    <div>
                         <Button className="w-full" type="submit">
                             <Check />
                             Login
                         </Button>
 
                         <h1 className="my-3 text-center text-gray-500">OR</h1>
-
-
-
                     </div>
                 </Form>
-                <button 
+                <button
                     onClick={handleGoogle}
-                className="w-full flex items-center justify-center gap-2 text-blue-600" >
-                    <BsGoogle></BsGoogle>
-                    Login Wite Google
+                    className="w-full flex items-center justify-center gap-2 text-blue-600 mt-4"
+                >
+                    <BsGoogle />
+                    Login With Google
                 </button>
             </div>
-        );
-    };
+        </div>
+    );
+};
 
-    export default LoginPage;
+export default LoginPage;
