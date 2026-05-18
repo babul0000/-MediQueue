@@ -19,7 +19,8 @@ const DetailsPage = async ({ params }) => {
         mode,
         availableDaysAndTime,
         hourlyFee,
-        remainingSlots,
+        totalSlot
+,
         sessionStartDate
     } = data || {};
     console.log(data);
@@ -58,7 +59,8 @@ const DetailsPage = async ({ params }) => {
                     <p><span className="font-bold">Mode:</span> {mode}</p>
                     <p><span className="font-bold">Available & Time Slot:</span> {availableDaysAndTime}</p>
                     <p><span className="font-bold">Hourly Fee:</span> ৳{hourlyFee}/hr</p>
-                    <p><span className="font-bold">Remaining Slots:</span> {remainingSlots}</p>
+                    <p><span className="font-bold">Remaining Slots:</span> {totalSlot
+}</p>
                     <p><span className="font-bold">Session Start Date:</span> {sessionStartDate}</p>
                 </div>
 

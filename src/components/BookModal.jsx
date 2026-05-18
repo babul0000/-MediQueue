@@ -35,7 +35,7 @@ export function BookingModal({ data }) {
                         <Modal.Header className="text-center flex flex-col items-center">
                             <Modal.Heading className="text-xl font-bold text-gray-900">Book Session</Modal.Heading>
                             <p className="mt-1 text-sm leading-5 text-gray-500 max-w-xs">
-                                Make changes to your profile here. Click save when you're done.
+                                Make changes to your profile here. Click save when youre done.
                             </p>
                         </Modal.Header>
 

@@ -15,6 +15,8 @@ const Navbar = () => {
         { name: 'Add Tutors', href: '/add-tutor' },
         { name: 'My Tutors', href: '/my-tutors' },
         { name: 'My Booked Session', href: '/booked-session' },
+        { name: 'Register', href: '/register' },
+        { name: 'Login', href: '/login' },
     ];
 
     return (
