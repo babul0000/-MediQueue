@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
+import { ThemeSwitch } from './ThemeToggle';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +54,9 @@ const Navbar = () => {
                         })}
                     </div>
 
+<div>
+                        <ThemeSwitch/>
+                    </div>
 
                     <div className='hidden md:flex items-center'>
                         <button className="bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold py-2 px-4 rounded border border-slate-200 transition-all shadow-sm">
@@ -98,11 +102,16 @@ const Navbar = () => {
                     
                     <hr className="border-gray-200 my-2" />
 
+                    <div>
+                        <ThemeSwitch/>
+                    </div>
+
                     <div className="px-3 pt-2">
                         <button className="w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold py-2.5 px-4 rounded-xl border border-slate-200 text-center text-sm shadow-sm transition-all">
                             Logout
                         </button>
                     </div>
+                    
 
                 </div>
             </div>
