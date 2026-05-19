@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "@gravity-ui/icons";
 import { Switch } from "@heroui/react";
 
-export function ThemeSwitch() {
+export function ThemeToggle() {
     const { theme, setTheme } = useTheme();
 // onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     return (
