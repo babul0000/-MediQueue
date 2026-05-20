@@ -110,6 +110,13 @@ export default function Navbar() {
                         >
                             Add Tutor
                         </Link>
+                        <Link
+                            href="/my-tutor"
+                            className={getLinkClass("/my-tutor")}
+                        >
+                            My Tutor
+                        </Link>
+
 
                         <Link
                             href="/booked-session"

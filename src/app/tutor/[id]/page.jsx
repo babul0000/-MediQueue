@@ -60,7 +60,7 @@ const DetailsPage = async ({ params }) => {
                         minHeight: '400px',
                     }}
                 >
-                    {/* ── Purple gradient tint overlay ── */}
+
                     <div
                         className="absolute inset-0 pointer-events-none z-0"
                         style={{
@@ -69,7 +69,7 @@ const DetailsPage = async ({ params }) => {
                         }}
                     />
 
-                    {/* ── Left: Image Panel ── */}
+
                     <div className="relative w-[320px] min-w-[320px] overflow-hidden shrink-0">
                         {photoUrl ? (
                             <Image
@@ -95,7 +95,7 @@ const DetailsPage = async ({ params }) => {
                             </div>
                         )}
 
-                        {/* Fade right edge into white */}
+
                         <div
                             className="absolute inset-0"
                             style={{
@@ -104,7 +104,7 @@ const DetailsPage = async ({ params }) => {
                             }}
                         />
 
-                        {/* Subject badge */}
+
                         <div
                             className="absolute top-5 left-5 text-[12px] font-medium px-4 py-[5px] rounded-full tracking-[0.04em]"
                             style={{
@@ -116,7 +116,7 @@ const DetailsPage = async ({ params }) => {
                             {subject}
                         </div>
 
-                        {/* Mode badge */}
+
                         <div
                             className="absolute bottom-5 left-5 text-[11px] font-medium px-3 py-[4px] rounded-full"
                             style={{
@@ -129,10 +129,10 @@ const DetailsPage = async ({ params }) => {
                         </div>
                     </div>
 
-                    {/* ── Right: Content Panel ── */}
+
                     <div className="flex-1 flex flex-col justify-between p-10 pl-8 relative z-10">
 
-                        {/* Top: name + fee */}
+
                         <div className="flex items-start justify-between gap-4 mb-6">
                             <div>
                                 <h2
@@ -145,7 +145,7 @@ const DetailsPage = async ({ params }) => {
                                 </p>
                             </div>
 
-                            {/* Fee pill — top right */}
+
                             <div
                                 className="shrink-0 flex flex-col items-end"
                             >
@@ -167,13 +167,13 @@ const DetailsPage = async ({ params }) => {
                             </div>
                         </div>
 
-                        {/* Divider */}
+
                         <div
                             className="mb-6"
                             style={{ height: '0.5px', background: '#f0f0f0' }}
                         />
 
-                        {/* Info grid */}
+
                         <div className="grid grid-cols-2 gap-x-6 gap-y-[14px] mb-8">
                             {infoItems.map(({ label, value, green }) => (
                                 <div key={label} className="flex flex-col gap-[3px]">
@@ -193,7 +193,7 @@ const DetailsPage = async ({ params }) => {
                             ))}
                         </div>
 
-                        {/* Bottom row: slots + booking button */}
+
                         <div className="flex items-center gap-3">
                             {/* Slots badge */}
                             <div
@@ -211,11 +211,11 @@ const DetailsPage = async ({ params }) => {
                                 remaining
                             </div>
 
-                            {/* BookingModal — fills remaining width */}
+
                             <div
                                 className="flex-1 book-btn-wrap"
                                 style={{
-                                    /* Override BookingModal's button to match design */
+
                                 }}
                             >
                                 <BookingModal data={data} />
