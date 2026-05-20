@@ -32,7 +32,7 @@ const MyTutors = () => {
             <h1 className="text-3xl font-bold mb-8">My Tutors</h1>
             {tutors.length === 0 ? (
                 <div className="text-center py-20 bg-gray-50 rounded-2xl border border-dashed border-gray-300">
-                    <p className="text-gray-500">You haven't added any tutors yet.</p>
+                    <p className="text-gray-500">You haven t added any tutors yet.</p>
                 </div>
             ) : (
                 <div className="overflow-x-auto border rounded-xl">
