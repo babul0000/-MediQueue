@@ -21,6 +21,6 @@ export const config = {
         '/my-tutor', 
         '/booked-session', 
         '/add-tutor', 
-        '/tutor/:path*' 
+        '/tutor/:path' 
     ],
 };
