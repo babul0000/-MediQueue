@@ -13,7 +13,7 @@ const EditTutorModal = ({ tutor, onUpdateSuccess }) => {
 
     const handleUpdate = async () => {
         // const { token } = await authClient.token;
-        const res = await fetch(`http://localhost:5000/tutor/${tutor._id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${tutor._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

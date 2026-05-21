@@ -24,7 +24,7 @@ const AddTutorForm = () => {
         };
 
         try {
-            const res = await fetch(`http://localhost:5000/add-tutor`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutor`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

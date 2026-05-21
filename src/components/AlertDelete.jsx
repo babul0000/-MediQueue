@@ -13,7 +13,7 @@ const AlertDelete = ({ book }) => {
         setLoading(true);
         try {
             // const { data: session } = await authClient.getSession();
-            const res = await fetch(`http://localhost:5000/booking/${book._id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${book._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

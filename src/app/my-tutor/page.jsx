@@ -33,7 +33,7 @@ const MyTutors = () => {
 
             try {
                 const res = await fetch(
-                    `http://localhost:5000/my-tutors/${session.user.email}`
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors/${session.user.email}`
                 );
 
                 const data = await res.json();

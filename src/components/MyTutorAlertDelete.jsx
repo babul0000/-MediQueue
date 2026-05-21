@@ -8,7 +8,7 @@ const MyTutorAlertDelete = ({ book, onDeleteSuccess }) => {
     
     const handleDelete = async () => {
         // const { token } = await authClient.token;
-        const res = await fetch(`http://localhost:5000/tutor/${book._id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${book._id}`, {
             method: 'DELETE',
             // headers: {
             //     'authorization': `Bearer ${token}`
