@@ -12,9 +12,13 @@ const EditTutorModal = ({ tutor, onUpdateSuccess }) => {
     const closeButtonRef = useRef(null);
 
     const handleUpdate = async () => {
+        // const { token } = await authClient.token;
         const res = await fetch(`http://localhost:5000/tutor/${tutor._id}`, {
             method: "PUT",
-            headers: { "content-type": "application/json" },
+            headers: {
+                "content-type": "application/json",
+                // "authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(formData),
         });
 

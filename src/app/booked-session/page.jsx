@@ -4,6 +4,11 @@ import { Table } from '@heroui/react';
 import { headers } from "next/headers";
 import React from 'react';
 
+export const metadata = {
+  title: "My Bookings - MediQueue",
+  description: "View and manage your booked tutor sessions.",
+};
+
 const MyBookingPage = async () => {
     const session = await auth.api.getSession({
         headers: await headers()
@@ -17,9 +22,14 @@ const MyBookingPage = async () => {
             </div>
         );
     }
-
+ const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
     const res = await fetch(`http://localhost:5000/my-bookings?email=${userEmail}`, {
-        cache: 'no-store' 
+        cache: 'no-store' ,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     });
     const bookings = await res.json();
 
@@ -27,7 +37,7 @@ const MyBookingPage = async () => {
         return (
             <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-6">
                 <h2 className="text-2xl font-semibold text-gray-700 mb-2">No Bookings Found</h2>
-                <p className="text-gray-500">You haven't booked any tutor sessions yet!</p>
+                <p className="text-gray-500">You haven t booked any tutor sessions yet!</p>
             </div>
         );
     }

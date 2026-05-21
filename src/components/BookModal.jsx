@@ -19,10 +19,12 @@ export function BookingModal({ data }) {
         booking.tutorName = data?.tutorName; 
 
         try {
+            const {data:tokenData} = await authClient.token()
             const res = await fetch(`http://localhost:5000/add-booking`, {
                 method: 'POST',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${tokenData?.token}`
                 },
                 body: JSON.stringify(booking)
             });
