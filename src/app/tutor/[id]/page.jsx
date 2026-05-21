@@ -6,10 +6,10 @@ import React from 'react';
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params;
- const { token } = await auth.api.getToken({
+    const { token } = await auth.api.getToken({
         headers: await headers()
     });
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor/${id}`, {
         headers: {
             authorization: `Bearer ${token}`
         },
@@ -17,17 +17,9 @@ const DetailsPage = async ({ params }) => {
     const data = await res.json();
 
     const {
-        tutorName,
-        photoUrl,
-        subject,
-        institution,
-        experience,
-        location,
-        teachingMode,
-        availableDaysAndTime,
-        hourlyFee,
-        totalSlot,
-        sessionStartDate,
+        tutorName, photoUrl, subject, institution, experience,
+        location, teachingMode, availableDaysAndTime, hourlyFee,
+        totalSlot, sessionStartDate,
     } = data || {};
 
     const initials = tutorName
@@ -44,195 +36,68 @@ const DetailsPage = async ({ params }) => {
     ];
 
     return (
-        <>
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
-                .tutor-detail-root { font-family: 'DM Sans', sans-serif; }
-                .tutor-detail-root h2 { font-family: 'Playfair Display', serif; }
-                .book-btn-wrap button, .book-btn-wrap a {
-                    transition: background 0.2s, transform 0.15s;
-                }
-                .book-btn-wrap button:hover, .book-btn-wrap a:hover {
-                    background: #3C3489 !important;
-                    transform: translateY(-1px);
-                }
-            `}</style>
-
-            <div className="tutor-detail-root min-h-screen bg-[#f6f5ff] flex items-center justify-center py-12 px-4">
-                <div
-                    className="relative w-full max-w-[1020px] rounded-[32px] overflow-hidden flex"
-                    style={{
-                        background: '#fff',
-                        border: '0.5px solid #e5e7eb',
-                        boxShadow: '0 8px 48px rgba(83,74,183,0.10)',
-                        minHeight: '400px',
-                    }}
-                >
-                    {/* ── Purple gradient tint overlay ── */}
-                    <div
-                        className="absolute inset-0 pointer-events-none z-0"
-                        style={{
-                            background:
-                                'linear-gradient(135deg, rgba(83,74,183,0.05) 0%, transparent 55%)',
-                        }}
-                    />
-
-                    {/* ── Left: Image Panel ── */}
-                    <div className="relative w-[320px] min-w-[320px] overflow-hidden shrink-0">
-                        {photoUrl ? (
-                            <Image
-                                src={photoUrl}
-                                alt={tutorName}
-                                fill
-                                className="object-cover"
-                            />
-                        ) : (
-                            <div
-                                className="w-full h-full flex items-center justify-center"
-                                style={{
-                                    background:
-                                        'linear-gradient(145deg, #CECBF6, #AFA9EC, #7F77DD)',
-                                }}
-                            >
-                                <span
-                                    className="text-[64px] font-bold text-white/90"
-                                    style={{ fontFamily: "'Playfair Display', serif" }}
-                                >
-                                    {initials}
-                                </span>
-                            </div>
-                        )}
-
-                        {/* Fade right edge into white */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                background:
-                                    'linear-gradient(to right, transparent 50%, #fff)',
-                            }}
-                        />
-
-                        {/* Subject badge */}
-                        <div
-                            className="absolute top-5 left-5 text-[12px] font-medium px-4 py-[5px] rounded-full tracking-[0.04em]"
-                            style={{
-                                background: 'rgba(83,74,183,0.12)',
-                                color: '#534AB7',
-                                border: '0.5px solid rgba(83,74,183,0.28)',
-                            }}
-                        >
-                            {subject}
+        <div className="min-h-screen bg-[#f6f5ff] py-8 px-4 md:py-12">
+            <div className="max-w-[1020px] mx-auto bg-white rounded-[24px] md:rounded-[32px] overflow-hidden border border-gray-100 shadow-[0_8px_48px_rgba(83,74,183,0.10)] flex flex-col md:flex-row">
+                
+                {/* Left: Image Panel */}
+                <div className="relative w-full md:w-[320px] h-[250px] md:h-auto shrink-0">
+                    {photoUrl ? (
+                        <Image src={photoUrl} alt={tutorName} fill className="object-cover" />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#CECBF6] to-[#7F77DD]">
+                            <span className="text-5xl font-bold text-white/90">{initials}</span>
                         </div>
+                    )}
+                    
+                    {/* Badges */}
+                    <div className="absolute top-4 left-4 text-[11px] font-medium px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white border border-white/30">
+                        {subject}
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-[11px] font-medium px-3 py-1 rounded-full bg-[#E1F5EE] text-[#0F6E56]">
+                        🎥 {teachingMode}
+                    </div>
+                </div>
 
-                        {/* Mode badge */}
-                        <div
-                            className="absolute bottom-5 left-5 text-[11px] font-medium px-3 py-[4px] rounded-full"
-                            style={{
-                                background: '#E1F5EE',
-                                color: '#0F6E56',
-                                border: '0.5px solid #5DCAA5',
-                            }}
-                        >
-                            🎥 {teachingMode}
+                {/* Right: Content Panel */}
+                <div className="flex-1 p-6 md:p-10">
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-4 mb-6">
+                        <div>
+                            <h2 className="text-2xl md:text-[32px] font-bold text-[#111]">{tutorName}</h2>
+                            <p className="text-xs uppercase tracking-widest text-gray-400 mt-1">Senior Subject Tutor</p>
+                        </div>
+                        <div className="text-left sm:text-right">
+                            <span className="block text-[10px] uppercase text-gray-400">Hourly Fee</span>
+                            <span className="text-2xl font-bold text-[#534AB7]">৳{hourlyFee}<span className="text-sm text-gray-400 font-normal">/hr</span></span>
                         </div>
                     </div>
 
-                    {/* ── Right: Content Panel ── */}
-                    <div className="flex-1 flex flex-col justify-between p-10 pl-8 relative z-10">
+                    <div className="h-[1px] bg-gray-100 mb-6" />
 
-                        {/* Top: name + fee */}
-                        <div className="flex items-start justify-between gap-4 mb-6">
-                            <div>
-                                <h2
-                                    className="text-[32px] font-bold leading-tight text-[#111] mb-1"
-                                >
-                                    {tutorName}
-                                </h2>
-                                <p className="text-[13px] uppercase tracking-[0.07em] text-[#9ca3af]">
-                                    Senior Subject Tutor
-                                </p>
-                            </div>
-
-                            {/* Fee pill — top right */}
-                            <div
-                                className="shrink-0 flex flex-col items-end"
-                            >
-                                <span className="text-[11px] uppercase tracking-[0.07em] text-[#9ca3af] mb-1">
-                                    Hourly Fee
-                                </span>
-                                <span
-                                    className="text-[26px] font-bold"
-                                    style={{
-                                        fontFamily: "'Playfair Display', serif",
-                                        color: '#534AB7',
-                                    }}
-                                >
-                                    ৳{hourlyFee}
-                                    <span className="text-[14px] font-normal text-[#9ca3af]">
-                                        /hr
-                                    </span>
+                    {/* Info Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-8">
+                        {infoItems.map(({ label, value, green }) => (
+                            <div key={label}>
+                                <span className="block text-[9px] uppercase font-bold text-gray-400 tracking-wider">{label}</span>
+                                <span className={`text-sm ${green ? 'text-[#1D9E75] font-semibold' : 'text-gray-800'}`}>
+                                    {value}
                                 </span>
                             </div>
+                        ))}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                        <div className="text-[12px] text-gray-500 border border-gray-100 px-4 py-2 rounded-full bg-gray-50 w-full sm:w-auto text-center">
+                            🕐 <span className="text-[#1D9E75] font-bold">{totalSlot}</span> remaining
                         </div>
-
-                        {/* Divider */}
-                        <div
-                            className="mb-6"
-                            style={{ height: '0.5px', background: '#f0f0f0' }}
-                        />
-
-                        {/* Info grid */}
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-[14px] mb-8">
-                            {infoItems.map(({ label, value, green }) => (
-                                <div key={label} className="flex flex-col gap-[3px]">
-                                    <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-[#9ca3af]">
-                                        {label}
-                                    </span>
-                                    <span
-                                        className="text-[13px] leading-snug"
-                                        style={{
-                                            color: green ? '#1D9E75' : '#111',
-                                            fontWeight: green ? 500 : 400,
-                                        }}
-                                    >
-                                        {value}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Bottom row: slots + booking button */}
-                        <div className="flex items-center gap-3">
-                            {/* Slots badge */}
-                            <div
-                                className="text-[12px] px-4 py-[6px] rounded-full whitespace-nowrap"
-                                style={{
-                                    border: '0.5px solid #e5e7eb',
-                                    color: '#6b7280',
-                                    background: '#f9fafb',
-                                }}
-                            >
-                                🕐{' '}
-                                <span className="text-[#1D9E75] font-medium">
-                                    {totalSlot}
-                                </span>{' '}
-                                remaining
-                            </div>
-
-                            {/* BookingModal — fills remaining width */}
-                            <div
-                                className="flex-1 book-btn-wrap"
-                                style={{
-                                    /* Override BookingModal's button to match design */
-                                }}
-                            >
-                                <BookingModal data={data} />
-                            </div>
+                        <div className="w-full sm:flex-1">
+                            <BookingModal data={data} />
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
