@@ -12,7 +12,9 @@ const TutorPage = () => {
     useEffect(() => {
         const loadTutors = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor`,{
+                    cache: "no-store" 
+                });
                 const data = await res.json();
                 setTutors(data);
             } catch (error) {

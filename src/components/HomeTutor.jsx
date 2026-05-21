@@ -3,7 +3,9 @@ import TutorCard from "./TutorCard";
 
 async function getTutors() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor-home`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutor-home`,{
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error("Failed to fetch tutors");
     return res.json();
   } catch (error) {

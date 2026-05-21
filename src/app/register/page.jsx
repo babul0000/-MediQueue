@@ -1,208 +1,236 @@
 "use client";
 
-import { useState } from "react";
-import { Check } from "@gravity-ui/icons";
+import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import {
     Button,
-    Description,
     FieldError,
     Form,
     Input,
+    InputGroup,
     Label,
     TextField,
 } from "@heroui/react";
-
-import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
 
-const SignUpPage = () => {
+const RegisterPage = () => {
+    const [isVisible, setIsVisible] = useState(false);
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setErrorMsg("");
+        const formData = new FormData(e.currentTarget);
+        const UserData = Object.fromEntries(formData.entries());
 
-        try {
-            const formData = new FormData(e.currentTarget);
+        const password = UserData.password;
+        if (
+            password.length < 6 ||
+            !/[A-Z]/.test(password) ||
+            !/[a-z]/.test(password)
+        ) {
+            toast.error("Invalid password criteria");
+            return;
+        }
 
-            const user = Object.fromEntries(formData.entries());
+        const { data, error } = await authClient.signUp.email({
+            name: UserData.name,
+            email: UserData.email,
+            password: UserData.password,
+            image: UserData.image,
+            callbackURL: "/login",
+        });
 
-            const { data, error } = await authClient.signUp.email({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                image: user.image || "",
-            });
-
-            if (error) {
-                setErrorMsg(error.message || "Something went wrong");
-                setLoading(false);
-                return;
-            }
-
-            if (data?.user) {
-                router.push("/login");
-            }
-        } catch (err) {
-            setErrorMsg("Unexpected error occurred");
-        } finally {
-            setLoading(false);
+        if (error) {
+            toast.error("Registration failed: " + error.message);
+        } else {
+            toast.success("Successfully registered!");
+            router.push("/login");
         }
     };
 
-    const handleGoogleSignUp = async () => {
-        try {
-            // future implementation (depends on auth provider)
-            // await authClient.signIn.social({ provider: "google" });
-
-            console.log("Google signup clicked");
-        } catch (err) {
-            console.log(err);
-        }
+    const signIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
     };
 
     return (
-        <div className="w-4/12 mx-auto my-10 border p-8 bg-white shadow-sm rounded-lg">
+        <div className="min-h-screen w-full my-4 flex items-center justify-center bg-background px-4 sm:px-6 lg:px-8 antialiased animate__animated animate__fadeIn">
+            <div className="w-full max-w-[460px] bg-content1 border border-default-200 dark:border-default-100 rounded-[2.5rem] shadow-xl p-6 sm:p-10 transition-all duration-300">
+                <div className="text-center mb-4 select-none">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full">
+                        Join Platform
+                    </span>
+                    <h2 className="text-3xl font-black tracking-tight text-foreground mt-4 mb-1.5">
+                        Create Account
+                    </h2>
+                    <p className="text-xs sm:text-sm text-foreground/50 font-medium">
+                        Sign up to get started with Mentorify
+                    </p>
+                </div>
 
-            {/* Heading */}
-            <div className="text-center mb-5">
-                <h1 className="text-5xl font-light">Create Account</h1>
-                <p className="text-gray-500 mt-2 text-lg">
-                    Start your adventure with Wanderlust
-                </p>
-                <div className="w-10 h-1 bg-pink-500 mx-auto mt-4 rounded"></div>
-            </div>
+                <Form className="flex flex-col gap-5" onSubmit={onSubmit}>
+                    <TextField
+                        className="w-full group"
+                        isRequired
+                        name="name"
+                        validate={(value) => {
+                            if (value.length < 3)
+                                return "Name must be at least 3 characters";
+                            return null;
+                        }}
+                    >
+                        <Label className="text-xs font-bold uppercase tracking-widest text-foreground/60 mb-2 block transition-colors group-focus-within:text-cyan-500">
+                            Full Name
+                        </Label>
+                        <Input
+                            placeholder="Your Name"
+                            className="font-medium"
+                            variant="flat"
+                            radius="xl"
+                            size="lg"
+                        />
+                        <FieldError className="text-xs font-semibold text-danger mt-1.5" />
+                    </TextField>
 
-            {/* Error Message */}
-            {errorMsg && (
-                <p className="text-red-500 text-center mb-3">
-                    {errorMsg}
-                </p>
-            )}
+                    <TextField
+                        className="w-full group"
+                        isRequired
+                        name="image"
+                        validate={(value) => {
+                            if (value.length < 3) return "Link must be a valid URL";
+                            return null;
+                        }}
+                    >
+                        <Label className="text-xs font-bold uppercase tracking-widest text-foreground/60 mb-2 block transition-colors group-focus-within:text-cyan-500">
+                            Profile Photo Link
+                        </Label>
+                        <Input
+                            placeholder="https://example.com/dp.jpg"
+                            className="font-medium"
+                            variant="flat"
+                            radius="xl"
+                            size="lg"
+                        />
+                        <FieldError className="text-xs font-semibold text-danger mt-1.5" />
+                    </TextField>
 
-            {/* Form */}
-            <Form
-                className="flex flex-col gap-4"
-                onSubmit={onSubmit}
-            >
+                    <TextField
+                        className="w-full group"
+                        isRequired
+                        name="email"
+                        type="email"
+                        validate={(value) => {
+                            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                                return "Enter a valid email address";
+                            }
+                            return null;
+                        }}
+                    >
+                        <Label className="text-xs font-bold uppercase tracking-widest text-foreground/60 mb-2 block transition-colors group-focus-within:text-cyan-500">
+                            Email Address
+                        </Label>
+                        <Input
+                            placeholder="name@example.com"
+                            className="font-medium"
+                            variant="flat"
+                            radius="xl"
+                            size="lg"
+                        />
+                        <FieldError className="text-xs font-semibold text-danger mt-1.5" />
+                    </TextField>
 
-                {/* Name */}
-                <TextField
-                    isRequired
-                    name="name"
-                    type="text"
-                    validate={(value) =>
-                        value.length < 3
-                            ? "Name must be at least 3 characters"
-                            : null
-                    }
-                >
-                    <Label>Full Name</Label>
-                    <Input placeholder="Enter your full name" />
-                    <FieldError />
-                </TextField>
-
-                {/* Image */}
-                <TextField name="image" type="url">
-                    <Label>Image URL</Label>
-                    <Input placeholder="Enter your image URL (optional)" />
-                    <FieldError />
-                </TextField>
-
-                {/* Email */}
-                <TextField
-                    isRequired
-                    name="email"
-                    type="email"
-                    validate={(value) =>
-                        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-                            ? null
-                            : "Enter a valid email"
-                    }
-                >
-                    <Label>Email</Label>
-                    <Input placeholder="john@example.com" />
-                    <FieldError />
-                </TextField>
-
-                {/* Password */}
-                <TextField
-                    isRequired
-                    name="password"
-                    type="password"
-                    validate={(value) => {
-                        if (value.length < 8)
-                            return "At least 8 characters";
-                        if (!/[A-Z]/.test(value))
-                            return "Need 1 uppercase letter";
-                        if (!/[0-9]/.test(value))
-                            return "Need 1 number";
-                        return null;
-                    }}
-                >
-                    <Label>Password</Label>
-
-                    <Input placeholder="Enter your password" />
-
-                    <Description>
-                        8+ chars, 1 uppercase, 1 number
-                    </Description>
-
-                    <FieldError />
-                </TextField>
-
-                {/* Submit */}
-                <div className="flex flex-col gap-3 w-full mt-2">
+                    <TextField
+                        name="password"
+                        isRequired
+                        className="w-full group"
+                        validate={(value) => {
+                            if (value.length < 6)
+                                return "Length must be at least 6 characters";
+                            if (!/[A-Z]/.test(value))
+                                return "Must have an Uppercase letter";
+                            if (!/[a-z]/.test(value)) return "Must have a Lowercase letter";
+                            return null;
+                        }}
+                    >
+                        <Label className="text-xs font-bold uppercase tracking-widest text-foreground/60 mb-2 block transition-colors group-focus-within:text-cyan-500">
+                            Password
+                        </Label>
+                        <InputGroup>
+                            <InputGroup.Input
+                                type={isVisible ? "text" : "password"}
+                                name="password"
+                                placeholder="••••••••"
+                                className="font-medium"
+                                variant="flat"
+                                radius="xl"
+                                size="lg"
+                            />
+                            <InputGroup.Suffix>
+                                <Button
+                                    isIconOnly
+                                    variant="light"
+                                    radius="full"
+                                    size="sm"
+                                    onPress={() => setIsVisible(!isVisible)}
+                                    className="text-foreground/40 hover:text-foreground transition-colors mr-1"
+                                >
+                                    {isVisible ? (
+                                        <Eye className="size-4" />
+                                    ) : (
+                                        <EyeSlash className="size-4" />
+                                    )}
+                                </Button>
+                            </InputGroup.Suffix>
+                        </InputGroup>
+                        <FieldError className="text-xs font-semibold text-danger mt-1.5" />
+                    </TextField>
 
                     <Button
                         type="submit"
-                        className="w-full"
-                        isDisabled={loading}
+                        className="w-full bg-foreground text-background font-bold h-12 rounded-xl shadow-md hover:opacity-95 active:scale-[0.99] transition-all mt-2 tracking-wide text-sm"
                     >
-                        <Check />
-                        {loading ? "Creating..." : "Create Account"}
+                        <Check className="w-4 h-4 mr-1.5 stroke-[2.5]" />
+                        Register
                     </Button>
 
-                    {/* Divider */}
-                    <div className="flex items-center gap-3 w-full">
-                        <div className="flex-1 h-[1px] bg-gray-300"></div>
-                        <p className="text-gray-500 text-sm">
-                            Or sign up with
-                        </p>
-                        <div className="flex-1 h-[1px] bg-gray-300"></div>
+                    <div className="flex items-center select-none">
+                        <div className="flex-grow border-t border-default-200/80 dark:border-default-100/30"></div>
+                        <span className="flex-shrink mx-4 text-foreground/30 font-extrabold text-[10px] tracking-[0.2em]">
+                            OR
+                        </span>
+                        <div className="flex-grow border-t border-default-200/80 dark:border-default-100/30"></div>
                     </div>
 
-                    {/* Google */}
-                    <Button
-                        type="button"
-                        variant="secondary"
-                        className="w-full"
-                        onClick={handleGoogleSignUp}
-                    >
-                        <FcGoogle size={20} />
-                        Sign Up With Google
-                    </Button>
-                </div>
+                    <div className="flex justify-center w-full">
+                        <Button
+                            type="button"
+                            variant="bordered"
+                            className="w-full sm:w-2/3 h-11 border-default-200 dark:border-default-100/80 rounded-xl font-bold text-foreground bg-transparent hover:bg-default-100 dark:hover:bg-default-50 transition-all text-xs sm:text-sm"
+                            onClick={signIn}
+                        >
+                            <FcGoogle className="text-lg" />
+                            Continue with Google
+                        </Button>
+                    </div>
 
-                {/* Login */}
-                <p className="text-center text-gray-500 w-full mt-3">
-                    Already have an account?{" "}
-                    <Link
-                        href="/login"
-                        className="text-cyan-500 font-medium hover:underline"
-                    >
-                        Sign In
-                    </Link>
-                </p>
-
-            </Form>
+                    <p className="text-center text-sm text-foreground/40 font-medium ">
+                        Already have an account?{" "}
+                        <Link
+                            href="/login"
+                            className="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 font-bold transition-colors underline-offset-4 hover:underline"
+                        >
+                            Login
+                        </Link>
+                    </p>
+                </Form>
+            </div>
         </div>
     );
 };
 
-export default SignUpPage;
+export default RegisterPage;
