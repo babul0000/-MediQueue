@@ -11,21 +11,26 @@ export const auth = betterAuth({
         // Optional: if you don't provide a client, database transactions won't be enabled.
         client
     }),
+    trustedOrigins: [
+
+        "http://localhost:3000",
+        "https://medi-queue-ebon.vercel.app",
+    ],
     emailAndPassword: {
         enabled: true,
     },
     socialProviders: {
-        google: { 
-            clientId: process.env.GOOGLE_CLIENT_ID, 
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
-        }, 
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
     },
     session: {
-cookieCache: {
-    enabled: true,
-    strategy: "jwt",
-    maxAge: 60 * 60 * 24, // 1 day
-}
+        cookieCache: {
+            enabled: true,
+            strategy: "jwt",
+            maxAge: 60 * 60 * 24, // 1 day
+        }
     },
 
     plugins: [
