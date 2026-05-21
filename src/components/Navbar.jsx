@@ -286,6 +286,19 @@ export default function Navbar() {
                     >
                         Add Tutor
                     </Link>
+                    <Link
+                        href="/my-tutor"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                            pathname === "/my-tutor"
+                                ? "bg-primary/10 text-primary"
+                                : "text-default-600 hover:bg-default-100"
+                        }`}
+                    >
+                        My Tutor
+                    </Link>
+
+                    
 
                     <Link
                         href="/booked-session"
