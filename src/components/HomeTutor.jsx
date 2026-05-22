@@ -30,7 +30,7 @@ export default function HomeTutors({ tutors }) {
             Meet Our Top Tutors
           </h2>
         </div>
-        <Link href="/tutor" className="text-sm font-semibold text-indigo-600 border border-indigo-200 px-5 py-2 rounded-xl hover:bg-indigo-50 transition-colors">
+        <Link href='/tutor' className="text-sm font-semibold text-indigo-600 border border-indigo-200 px-5 py-2 rounded-xl hover:bg-indigo-50 transition-colors">
           View All →
         </Link>
       </div>

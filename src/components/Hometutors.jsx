@@ -35,7 +35,7 @@ export default async function HomeTutors() {
           </h2>
         </div>
         <Link
-          href="/tutors"
+          href="/tutor"
           className="text-sm font-semibold text-indigo-600 border border-indigo-200 px-5 py-2 rounded-xl hover:bg-indigo-50 transition-colors"
         >
           View All →

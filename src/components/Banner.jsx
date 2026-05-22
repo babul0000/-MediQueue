@@ -119,7 +119,7 @@ export default function Banner() {
         </p>
 
         <button
-          onClick={() => router.push("/tutors")}
+          onClick={() => router.push("/tutor")}
           className="px-8 py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
           style={{ backgroundColor: slide.accent, color: "#0a0a0a", boxShadow: `0 0 28px ${slide.accent}40` }}
         >
