@@ -58,6 +58,8 @@ const MyBookingPage = async () => {
         'bg-emerald-100 text-emerald-600',
         'bg-amber-100 text-amber-600',
         'bg-rose-100 text-rose-600',
+
+        
     ];
 
     return (
@@ -155,7 +157,7 @@ const MyBookingPage = async () => {
                                 </div>
 
                                 {/* Delete button — full width on mobile */}
-                                <AlertDelete book={book} fullWidth />
+                                <AlertDelete className="bg-red-400" book={book} fullWidth />
                             </div>
                         </div>
                     ))}
